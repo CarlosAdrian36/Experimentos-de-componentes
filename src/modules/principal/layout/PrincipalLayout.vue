@@ -23,6 +23,9 @@ import TopMenu from '../common/TopMenu.vue'
       <label for="drawer-1" aria-label="close sidebar" class="drawer-overlay"></label>
       <ul class="menu bg-base-100 min-h-full w-80 p-4">
         <li>
+          <router-link :to="{ name: 'Default' }"> Home</router-link>
+        </li>
+        <li>
           <router-link :to="{ name: 'Dialog' }"> Dialog</router-link>
         </li>
         <li>
