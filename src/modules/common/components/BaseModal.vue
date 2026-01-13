@@ -4,7 +4,7 @@
       <!-- Contenido dinámico -->
       <component :is="component" v-bind="props" v-if="component" />
 
-      <div class="modal-action flex justify-end gap-2">
+      <div v-if="buttons.length" class="modal-action flex justify-end gap-2">
         <!-- Botones dinámicos -->
         <button
           v-for="(btn, i) in buttons"
@@ -13,17 +13,17 @@
           :class="{
             'btn-primary': btn.variant === 'primary',
             'btn-error': btn.variant === 'error',
-            'btn-outline': btn.variant === 'outline',
+            'btn-outline': btn.variant === 'outline' || !btn.variant,
           }"
-          @click="btn.action ? btn.action() : modal.closeModal()"
+          @click="handleButtonClick(btn)"
         >
           {{ btn.label }}
         </button>
       </div>
     </div>
-
-    <form method="dialog" class="modal-backdrop" @click="modal.closeModal()">
-      <button></button>
+    <!-- Para cerrar el modal dando click en el backdrop -->
+    <form method="dialog" class="modal-backdrop" @click.prevent="modal.closeModal()">
+      <button aria-label="Cerrar"></button>
     </form>
   </dialog>
 </template>
@@ -31,7 +31,35 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useModalStore } from '../stores/modalStore'
+import { onMounted, onBeforeUnmount } from 'vue'
+import type { ModalButton } from '../interface/ModalButton'
 
 const modal = useModalStore()
 const { isOpen, component, props, buttons } = storeToRefs(modal)
+
+function handleButtonClick(btn: ModalButton) {
+  if (btn.disabled) return
+
+  // Solo dispara submit si el botón lo dice
+  if (btn.type === 'submit') {
+    modal.submitFN?.()
+    return
+  }
+
+  // Botón normal
+  if (btn.action) btn.action()
+  else modal.closeModal()
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape' && isOpen.value) {
+    modal.closeModal()
+  }
+}
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
 </script>

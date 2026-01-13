@@ -1,13 +1,14 @@
+import { ref, shallowRef, type Component } from 'vue'
 import { defineStore } from 'pinia'
-import { ref, type Component } from 'vue'
 import type { ModalButton } from '../interface/ModalButton'
 
 export const useModalStore = defineStore('modal', () => {
   const isOpen = ref(false)
-  const component = ref<string | null | Component>(null)
-  const props = ref<Record<string, any>>({})
+  const component = shallowRef<Component | null>(null)
+  const props = ref<Record<string, unknown>>({})
   const buttons = ref<ModalButton[]>([])
 
+  const submitFN = ref<null | (() => void)>(null)
   function openModal(
     componentRef: Component,
     componentProps = {},
@@ -22,9 +23,13 @@ export const useModalStore = defineStore('modal', () => {
     isOpen.value = false
     component.value = null
     props.value = {}
-
     buttons.value = []
+    submitFN.value = null
   }
 
-  return { isOpen, component, props, buttons, openModal, closeModal }
+  function setSubmitFN(fn: (() => void) | null) {
+    submitFN.value = fn
+  }
+
+  return { isOpen, component, props, buttons, submitFN, openModal, closeModal, setSubmitFN }
 })

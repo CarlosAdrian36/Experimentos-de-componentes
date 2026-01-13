@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseModal from '@/modules/common/components/BaseModal.vue'
 import ConfirmeDelete from '@/modules/common/components/modals/ConfirmeDelete.vue'
+import Formulario from '@/modules/common/components/modals/Formulario.vue'
 import SearchItems from '@/modules/common/components/modals/SearchItems.vue'
 import UserForm from '@/modules/common/components/modals/UserForm.vue'
 import { useModalStore } from '@/modules/common/stores/modalStore'
@@ -24,24 +25,39 @@ function abrirConfirmacion() {
 }
 
 function abrirFormulario() {
-  modal.openModal(UserForm, {}, [
-    { label: 'Cancelar', variant: 'outline', action: modal.closeModal },
+  modal.openModal(
+    UserForm,
     {
-      label: 'Guardar',
-      variant: 'primary',
-      action: () => {
-        alert('Usuario guardado ✅')
+      onSubmit: (data: any) => {
+        alert(`Usuario guardad!!o: ${data.name} ✅`)
         modal.closeModal()
       },
     },
-  ])
+    [
+      { label: 'Cancelar', variant: 'outline', action: modal.closeModal, type: 'button' },
+      {
+        label: 'Guardar',
+        variant: 'primary',
+        type: 'submit',
+      },
+    ],
+  )
 }
 function abrirBuscador() {
   modal.openModal(SearchItems, {})
 }
 
 function AbrirModalConInformacion() {
-  alert('Aquí se abriría un modal con un formulario para ingresar nueva información.')
+  modal.openModal(Formulario, { texto: 'Información adicional' }, [
+    { label: 'Cerrar', variant: 'outline' },
+    {
+      label: 'Guardar',
+      variant: 'primary',
+      action: () => {
+        ;(alert('Guardado!'), modal.closeModal())
+      },
+    },
+  ])
 }
 </script>
 
@@ -50,7 +66,9 @@ function AbrirModalConInformacion() {
   <div class="space-x-2">
     <button class="btn btn-error" @click="abrirConfirmacion">Eliminar</button>
     <button class="btn btn-primary" @click="abrirFormulario">Nuevo Usuario</button>
-    <button class="btn btn-primary" @click="AbrirModalConInformacion">Nuevo Formulario</button>
+    <button class="btn btn-primary" @click="AbrirModalConInformacion">
+      Nuevo despues de vacaciones
+    </button>
   </div>
 
   <div class="relative w-full sm:w-auto">
@@ -64,4 +82,10 @@ function AbrirModalConInformacion() {
       </div>
     </button>
   </div>
+
+  <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+  <input
+    class="w-full rounded-xl border border-base-200 bg-base-100 px-3 py-2 text-sm shadow-sm placeholder:text-base-content/40 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none"
+  />
 </template>
