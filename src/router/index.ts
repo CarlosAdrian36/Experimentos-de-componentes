@@ -29,6 +29,11 @@ const router = createRouter({
           component: () => import('@/modules/peticion/layout/executionapi.vue'),
         },
         {
+          path: 'formulario',
+          name: 'Formulario',
+          component: () => import('@/modules/formulario/layout/CreacionBanco.vue'),
+        },
+        {
           path: 'not',
           name: 'not',
           component: NotFound,

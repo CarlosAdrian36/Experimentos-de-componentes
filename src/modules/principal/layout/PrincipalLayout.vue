@@ -31,6 +31,9 @@ import TopMenu from '../common/TopMenu.vue'
         <li>
           <router-link :to="{ name: 'exercise' }"> Ejercicio de api</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'Formulario' }"> Formulario de Creacion de Banco</router-link>
+        </li>
       </ul>
     </div>
   </div>
