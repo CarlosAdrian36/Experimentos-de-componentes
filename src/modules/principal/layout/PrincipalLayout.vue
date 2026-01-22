@@ -34,6 +34,12 @@ import TopMenu from '../common/TopMenu.vue'
         <li>
           <router-link :to="{ name: 'Formulario' }"> Formulario de Creacion de Banco</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'Editor' }"> Editor de Texto</router-link>
+        </li>
+        <!-- <li>
+          <router-link :to="{ name: 'Quill' }"> Quill</router-link>
+        </li> -->
       </ul>
     </div>
   </div>

@@ -34,6 +34,16 @@ const router = createRouter({
           component: () => import('@/modules/formulario/layout/CreacionBanco.vue'),
         },
         {
+          path: 'editor',
+          name: 'Editor',
+          component: () => import('@/modules/editorTexto/Primer/editorText.vue'),
+        },
+        // {
+        //   path: 'quill',
+        //   name: 'Quill',
+        //   component: () => import('@/modules/editorTexto/Quill/quill.vue'),
+        // },
+        {
           path: 'not',
           name: 'not',
           component: NotFound,
