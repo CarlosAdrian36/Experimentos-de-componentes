@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 fixed top-0 left-0 w-full z-50 max-h-[62px] outline">
+  <div class="navbar bg-base-100 sticky top-0 z-50 max-h-[62px] outline">
     <div class="navbar-start">
       <!-- boton que dispara el drawer  -->
       <label for="drawer-1" class="btn btn-ghost drawer-button">

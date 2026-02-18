@@ -12,16 +12,7 @@
           <froala :tag="'textarea'" v-model="html" :config="config" />
         </div>
       </div>
-      <!--  -->
-      <!-- <div class="flex flex-row p-6">
-        <button class="btn btn-sm btn-outline" @click="toggleToolbarB">
-          {{ showToolbarB ? 'Ocultar herramientas' : 'Mostrar herramientas' }}
-        </button>
-        <div :class="['froala-toggle', { 'is-open': showToolbarB }]">
-          <froala :tag="'textarea'" v-model="htmlB" :config="config" />
-        </div>
-      </div> -->
-      <!--  -->
+
       <div class="flex flex-row p-6">
         <div class="basis-1/12"></div>
         <div class="basis-11/12">
@@ -55,42 +46,64 @@
     <div class="collapse-title font-semibold flex justify-center">Crear Reactivo Tipos</div>
 
     <div class="collapse-content text-sm">
-      <div class="grid grid-cols-3 gap-4 m-8 place-items-center">
-        <!-- Botón -->
-        <button class="btn btn-outline btn-info w-[335px] flex items-center gap-3 justify-start">
-          <span class="w-6 flex justify-center">
-            <font-awesome-icon icon="circle-dot" />
-          </span>
+      <!-- 1) Botones -->
+      <div
+        v-if="!selectedKey"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 p-4 sm:p-6 lg:p-8 place-items-center"
+      >
+        <button
+          class="btn btn-outline btn-info w-full max-w-[335px] mx-auto flex items-center gap-3 justify-start"
+          @click="selectType('opcion_multiple')"
+        >
+          <span class="w-6 flex justify-center"><font-awesome-icon icon="circle-dot" /></span>
           <span>Opción múltiple</span>
         </button>
 
-        <button class="btn btn-outline btn-info w-[335px] flex items-center gap-3 justify-start">
-          <span class="w-6 flex justify-center">
-            <font-awesome-icon icon="font" />
-          </span>
+        <button
+          class="btn btn-outline btn-info w-full max-w-[335px] mx-auto flex items-center gap-3 justify-start"
+          @click="selectType('texto_abierto')"
+        >
+          <span class="w-6 flex justify-center"><font-awesome-icon icon="font" /></span>
           <span>Texto abierto</span>
         </button>
 
-        <button class="btn btn-outline btn-info w-[335px] flex items-center gap-3 justify-start">
-          <span class="w-6 flex justify-center">
-            <font-awesome-icon icon="check-double" />
-          </span>
+        <button
+          class="btn btn-outline btn-info w-full max-w-[335px] mx-auto flex items-center gap-3 justify-start"
+          @click="selectType('respuesta_multiple')"
+        >
+          <span class="w-6 flex justify-center"><font-awesome-icon icon="check-double" /></span>
           <span>Respuesta múltiple</span>
         </button>
 
-        <button class="btn btn-outline btn-info w-[335px] flex items-center gap-3 justify-start">
-          <span class="w-6 flex justify-center">
-            <font-awesome-icon icon="arrow-right-arrow-left" />
-          </span>
+        <button
+          class="btn btn-outline btn-info w-full max-w-[335px] mx-auto flex items-center gap-3 justify-start"
+          @click="selectType('verdadero_falso')"
+        >
+          <span class="w-6 flex justify-center"
+            ><font-awesome-icon icon="arrow-right-arrow-left"
+          /></span>
           <span>Verdadero / Falso</span>
         </button>
 
-        <button class="btn btn-outline btn-info w-[335px] flex items-center gap-3 justify-start">
-          <span class="w-6 flex justify-center">
-            <font-awesome-icon icon="arrows-turn-to-dots" />
-          </span>
+        <button
+          class="btn btn-outline btn-info w-full max-w-[335px] mx-auto flex items-center gap-3 justify-start"
+          @click="selectType('relacionar')"
+        >
+          <span class="w-6 flex justify-center"
+            ><font-awesome-icon icon="arrows-turn-to-dots"
+          /></span>
           <span>Relacionar</span>
         </button>
+      </div>
+
+      <!-- 2) Componente dinámico (SIN keep-alive) -->
+      <div v-else class="m-8">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-semibold">Tipo seleccionado: {{ selectedKey }}</span>
+          <button class="btn btn-sm btn-ghost" @click="resetSelection">← Volver</button>
+        </div>
+
+        <component :is="activeComponent" />
       </div>
     </div>
   </div>
@@ -151,6 +164,33 @@ const config = {
 }
 const MostrarToolbar = ref(false)
 const toggleToolbar = () => (MostrarToolbar.value = !MostrarToolbar.value)
+
+import OpcionMultiple from '@/modules/tiposReactivos/OpcionMultiple.vue'
+import Relacionar from '@/modules/tiposReactivos/Relacionar.vue'
+import RespuestaMultiple from '@/modules/tiposReactivos/RespuestaMultiple.vue'
+import TextoAbierto from '@/modules/tiposReactivos/TextoAbierto.vue'
+import VerdaderoFalso from '@/modules/tiposReactivos/VerdaderoFalso.vue'
+import { computed, markRaw } from 'vue'
+import EditorReactivo from '../component/editorReactivo.vue'
+
+const selectedKey = ref(null) // null = mostrar botones
+
+const map = {
+  opcion_multiple: markRaw(OpcionMultiple),
+  texto_abierto: markRaw(TextoAbierto),
+  respuesta_multiple: markRaw(RespuestaMultiple),
+  verdadero_falso: markRaw(VerdaderoFalso),
+  relacionar: markRaw(Relacionar),
+}
+const activeComponent = computed(() => (selectedKey.value ? map[selectedKey.value] : null))
+
+function selectType(key) {
+  selectedKey.value = key
+}
+
+function resetSelection() {
+  selectedKey.value = null
+}
 </script>
 <style>
 .froala-toggle .fr-toolbar {

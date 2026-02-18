@@ -16,6 +16,7 @@ import {
   faFont,
   faCheckDouble,
   faArrowsTurnToDots,
+  faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 
 // Registrar íconos
@@ -33,6 +34,7 @@ library.add(
   faFont,
   faCheckDouble,
   faArrowsTurnToDots,
+  faUserGroup,
 )
 
 export { FontAwesomeIcon }

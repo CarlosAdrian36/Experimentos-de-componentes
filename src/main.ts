@@ -1,4 +1,5 @@
 import './assets/main.css'
+import '@/assets/fontaweosme/css/all.css'
 
 import { createPinia } from 'pinia'
 
