@@ -73,13 +73,11 @@ const emit = defineEmits(['toggle'])
 
         <!-- hamburger icon -->
         <div class="swap-on">
-          <!-- <i class="fa-light fa-sidebar"></i> -->
           <Sidebarclose />
         </div>
 
         <!-- close icon -->
         <div class="swap-off">
-          <!-- <i class="fa-duotone fa-solid fa-sidebar"></i> -->
           <Sidebaropen />
         </div>
       </label>
