@@ -8,9 +8,9 @@ const toggleDrawer = () => {
   isDrawerOpen.value = !isDrawerOpen.value
 }
 
-const closeDrawer = () => {
-  isDrawerOpen.value = false
-}
+// const closeDrawer = () => {
+//   isDrawerOpen.value = false
+// }
 </script>
 <!-- <TopMenu2 @toggle="toggleDrawer" />  -->
 
@@ -62,7 +62,9 @@ const closeDrawer = () => {
             <button
               class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
             >
-              <div class="w-5 h-5"></div>
+              <div class="w-5 h-5">
+                <i class="fa-solid fa-users"></i>
+              </div>
               <span v-if="isDrawerOpen">Gestión de miembros del CAD</span>
             </button>
           </div>
