@@ -15,7 +15,7 @@ const toggleDrawer = () => {
 <!-- <TopMenu2 @toggle="toggleDrawer" />  -->
 
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col h-screen overflow-hidden">
     <TopMenu2 @toggle="toggleDrawer" />
 
     <div class="drawer lg:drawer-open flex-1">
@@ -43,7 +43,7 @@ const toggleDrawer = () => {
 
             <!-- Item -->
             <button
-              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200 cursor-pointer"
             >
               <!-- Espacio para icono -->
               <div class="w-5 h-5">
@@ -53,14 +53,14 @@ const toggleDrawer = () => {
             </button>
 
             <button
-              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200 cursor-pointer"
             >
               <div class="w-5 h-5"><i class="fa-sharp-duotone fa-solid fa-folder-open"></i></div>
               <span v-if="isDrawerOpen">Carpetas</span>
             </button>
 
             <button
-              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200 cursor-pointer"
             >
               <div class="w-5 h-5">
                 <i class="fa-solid fa-users"></i>
