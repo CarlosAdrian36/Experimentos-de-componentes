@@ -59,6 +59,18 @@ function AbrirModalConInformacion() {
     },
   ])
 }
+function Experimento() {
+  modal.openModal(Formulario, { texto: 'Información adicional' }, [
+    { label: 'Cerrar', variant: 'outline' },
+    {
+      label: 'Guardar',
+      variant: 'primary',
+      action: () => {
+        ;(alert('Guardado!'), modal.closeModal())
+      },
+    },
+  ])
+}
 </script>
 
 <template>
@@ -70,7 +82,9 @@ function AbrirModalConInformacion() {
       Nuevo despues de vacaciones
     </button>
   </div>
-
+  <div class="space-x-2">
+    <button class="btn btn-primary" @click="Experimento">Experimento</button>
+  </div>
   <div class="relative w-full sm:w-auto">
     <button class="btn w-[307px] btn-outline flex justify-between mt-2" @click="abrirBuscador">
       <div class="flex justify-between">
@@ -82,10 +96,4 @@ function AbrirModalConInformacion() {
       </div>
     </button>
   </div>
-
-  <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-
-  <input
-    class="w-full rounded-xl border border-base-200 bg-base-100 px-3 py-2 text-sm shadow-sm placeholder:text-base-content/40 focus:border-primary/60 focus:ring-2 focus:ring-primary/20 focus:outline-none"
-  />
 </template>

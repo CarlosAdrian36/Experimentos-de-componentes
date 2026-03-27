@@ -54,11 +54,12 @@ const router = createRouter({
           name: 'Reactivos',
           component: () => import('@/modules/banco/gestionReactivos/reactivos.vue'),
         },
-        // {
-        //   path: 'quill',
-        //   name: 'Quill',
-        //   component: () => import('@/modules/editorTexto/Quill/quill.vue'),
-        // },
+        {
+          path: 'themes',
+          name: 'Themes',
+          component: () => import('@/modules/themes/layout/contenido.vue'),
+        },
+
         {
           path: 'not',
           name: 'not',
